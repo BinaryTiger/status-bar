@@ -13,20 +13,20 @@ public class Clock : Plugin
     string dateFormatShort { get; set; }
     string dateFormatLong { get; set; }
 
-    public void buildcustomArgs()
+    public new void buildCustomArgs()
     {
-        if (this.customArgs.ContainsKey("dateformatshort"))
+        if (this.customArgs.ContainsKey("dateFormatshort"))
         {
-            this.dateFormatShort = this.customArgs["dateformatshort"];
+            this.dateFormatShort = this.customArgs["dateFormatshort"];
         }
         else
         {
             this.dateFormatShort = "hh:mm:ss";
         }
 
-        if (this.customArgs.ContainsKey("dateformatlong"))
+        if (this.customArgs.ContainsKey("dateFormatLong"))
         {
-            this.dateFormatLong = this.customArgs["dateformatlong"];
+            this.dateFormatLong = this.customArgs["dateFormatLong"];
         }
         else
         {

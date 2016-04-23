@@ -58,6 +58,7 @@
     <Compile Include="MainBar.Designer.cs">
       <DependentUpon>MainBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="PluginManager.cs" />
     <Compile Include="plugins\Plugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

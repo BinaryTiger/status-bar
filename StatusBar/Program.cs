@@ -14,6 +14,7 @@ namespace StatusBar
         [STAThread]
         static void Main()
         {
+            PluginManager manager = new PluginManager();
             statusBar mainStatusBar;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -25,12 +26,12 @@ namespace StatusBar
 
             settings.updateBar(mainStatusBar);
 
-            foreach(Plugin p in settings.plugins)
+            foreach (Plugin p in settings.plugins)
             {
                 try
                 {
                     ObjectHandle handle = Activator.CreateInstance(p.name, p.name);
-                    Object plugin = (Object)handle.Unwrap();
+                    Object plugin = handle.Unwrap();
                     Type t = plugin.GetType();
 
                     PropertyInfo propName = t.GetProperty("name");
@@ -51,15 +52,17 @@ namespace StatusBar
                     MethodInfo methodBuildArgs = t.GetMethod("buildCustomArgs");
                     methodBuildArgs.Invoke(plugin, null);
 
-                    MethodInfo methodShowLong = t.GetMethod("showLong");
-                    string textToDisplay = (string)methodShowLong.Invoke(plugin, null);
+                    manager.addPlugin(plugin);
+
+                    //MethodInfo methodShowLong = t.GetMethod("showLong");
+                    //string textToDisplay = (string)methodShowLong.Invoke(plugin, null);
 
                     Label labelToAdd = new Label();
-                    labelToAdd.Text = textToDisplay;
+                    labelToAdd.Name = p.name;
+                    labelToAdd.MinimumSize = new Size(settings.height, 10);
                     labelToAdd.AutoSize = true;
-                    labelToAdd.Top = 5;
-                    labelToAdd.Left = mainStatusBar.Width - labelToAdd.Width - 10;
-
+                    labelToAdd.Text = "test";                                     
+                    labelToAdd.Top = 5;             
 
                     labelToAdd.ForeColor = Color.White;
 
@@ -77,6 +80,11 @@ namespace StatusBar
                     }
                 }
             }
+
+            mainStatusBar.updateLeft("Clock");
+            manager.showPluginNameList();
+
+
 
             //System.Diagnostics.Debug.WriteLine("Plugins: " + settings.plugins[0].name);
             //System.Diagnostics.Debug.WriteLine("Plugins: " + settings.plugins[0].customArgs["dateFormatShort"]);
