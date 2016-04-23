@@ -59,7 +59,6 @@
       <DependentUpon>MainBar.cs</DependentUpon>
     </Compile>
     <Compile Include="plugins\Plugin.cs" />
-    <Compile Include="plugins\Clock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingReader.cs" />
