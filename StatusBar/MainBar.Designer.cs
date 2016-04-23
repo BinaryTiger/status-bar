@@ -30,7 +30,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // statusBar
             // 
@@ -54,6 +59,8 @@
         }
 
         #endregion
+
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

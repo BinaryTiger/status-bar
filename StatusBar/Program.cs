@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.Remoting;
 using System.Reflection;
+using System.Threading;
 
 namespace StatusBar
 {
@@ -15,10 +16,11 @@ namespace StatusBar
         static void Main()
         {
             PluginManager manager = new PluginManager();
-            statusBar mainStatusBar;
+            statusBar mainStatusBar;            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            mainStatusBar = new statusBar();
+            mainStatusBar = new statusBar(manager);
+            
 
             // Applying the custom bar parameters
             SettingReader sr = new SettingReader();
@@ -61,9 +63,8 @@ namespace StatusBar
                     labelToAdd.Name = p.name;
                     labelToAdd.MinimumSize = new Size(settings.height, 10);
                     labelToAdd.AutoSize = true;
-                    labelToAdd.Text = "test";                                     
-                    labelToAdd.Top = 5;             
-
+                    labelToAdd.Text = "";                                     
+                    labelToAdd.Top = 5;
                     labelToAdd.ForeColor = Color.White;
 
                     mainStatusBar.addLabel(labelToAdd);
@@ -81,8 +82,6 @@ namespace StatusBar
                 }
             }
 
-            mainStatusBar.updateLeft("Clock");
-            manager.showPluginNameList();
 
 
 
