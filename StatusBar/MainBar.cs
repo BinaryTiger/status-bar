@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace StatusBar
@@ -25,7 +26,7 @@ namespace StatusBar
         }
 
         public void addLabel(Label l)
-        {            
+        {                        
             this.Controls.Add(l);
         }
 
@@ -53,8 +54,26 @@ namespace StatusBar
 
         }
 
+        public void updateLeft2()
+        {
+            int previousLabelPosition = this.Width;
+
+            foreach (Control c in this.Controls)
+            {
+                if (c.GetType() == typeof(Label))
+                {
+                    Label l = (Label)c;
+                    int left = previousLabelPosition - l.Width - 10;
+                    l.Left = left;
+                    previousLabelPosition = left;
+                }                   
+            }
+
+        }
+
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {           
+        {
+            System.Threading.Thread.Sleep(1000);
             this.updates = this.manager.getUpdates();
         }
 
@@ -62,9 +81,12 @@ namespace StatusBar
         {
             foreach (KeyValuePair<string, string> update in this.updates)
             {
+                System.Diagnostics.Debug.WriteLine("Key: " + update.Key);
+                System.Diagnostics.Debug.WriteLine("Value: " + update.Value);
                 this.updateText(update.Key, update.Value);
-                this.updateLeft(update.Key);
+                this.updateLeft2();
             }
+
             backgroundWorker1.RunWorkerAsync();
         }
     }

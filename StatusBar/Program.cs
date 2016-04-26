@@ -82,9 +82,6 @@ namespace StatusBar
                 }
             }
 
-
-
-
             //System.Diagnostics.Debug.WriteLine("Plugins: " + settings.plugins[0].name);
             //System.Diagnostics.Debug.WriteLine("Plugins: " + settings.plugins[0].customArgs["dateFormatShort"]);
 
